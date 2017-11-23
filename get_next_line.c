@@ -6,11 +6,12 @@
 /*   By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 14:49:35 by fbenneto          #+#    #+#             */
-/*   Updated: 2017/11/23 13:57:30 by fbenneto         ###   ########.fr       */
+/*   Updated: 2017/11/23 14:34:13 by fbenneto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 char	*ft_super_cat(char **astr, char *to_add)
 {
@@ -54,8 +55,11 @@ int		get_next_line(const int fd, char **line)
 	while ((st = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		s = ft_super_cat(&s, buff);
-		if (ft_strchr(buff, '\n'))//TODO
+		if (ft_strchr(buff, '\n'))
+		{
+			printf("has nl\n");
 			break;
+		}
 		ft_strclr(buff);
 	}
 	if (st < 0)
@@ -64,6 +68,7 @@ int		get_next_line(const int fd, char **line)
 	if (!(*line = ft_strnew(((t = ft_strchr(s, '\n'))) ? t - s : ft_strlen(s))))//taille de la chaine a cp entre deux '\n'
 		return (-1);
 	ft_strncpy(*line, s, (t) ? t - s : ft_strlen(s));
+	st = ft_strlen(ft_strchr(buff, '\n') + 1);
 	free(s);
-	return ((st > 0) ? 1 : st);
+	return ((st > 0) ? 1 : 0);
 }

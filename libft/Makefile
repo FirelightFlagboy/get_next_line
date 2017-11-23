@@ -6,7 +6,7 @@
 #    By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 14:45:08 by fbenneto          #+#    #+#              #
-#    Updated: 2017/11/23 14:25:26 by fbenneto         ###   ########.fr        #
+#    Updated: 2017/11/23 14:30:31 by fbenneto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ fclean : clean
 cleanf :
 	@printf "[$(NAME)]  rm $(BOL)$(CYA)$(NAME)$(NC)"
 	@rm -f $(NAME)
-	@printf '\t\t\t'$(OK)'\n'
+	@printf '\t\t\t\t'$(OK)'\n'
 
 proper : all clean
 

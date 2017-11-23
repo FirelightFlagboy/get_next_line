@@ -6,7 +6,7 @@
 /*   By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 13:38:22 by fbenneto          #+#    #+#             */
-/*   Updated: 2017/11/23 13:58:09 by fbenneto         ###   ########.fr       */
+/*   Updated: 2017/11/23 14:29:39 by fbenneto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ int main(int argc, char const *argv[])
 			return (printf("%s not found or not a file\n", argv[1]));
 		while ((st = get_next_line(fd, &str)) > 0)
 			printf("%s\n", str);
+		printf("%d\n", st);
 		if (st == -1)
 			return (printf("error when reading\n"));
-		printf("%s\n", str);
+		if (*str)
+			printf("cstr: %d\nstr:%s\nastr: %p\n", *str, str, str);
 	}
 	return 0;
 }
