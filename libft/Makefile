@@ -6,13 +6,14 @@
 #    By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 14:45:08 by fbenneto          #+#    #+#              #
-#    Updated: 2017/11/16 11:13:26 by fbenneto         ###   ########.fr        #
+#    Updated: 2017/11/23 14:15:50 by fbenneto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
 CFLAGS=-Wall -Werror -Wextra
 NAME=libft.a
+NAME_P = $(shell echo $(NAME) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 SRC=\
 ft_atoi.c ft_bzero.c ft_count_word.c ft_isalnum.c ft_isalpha.c ft_isascii.c\
 ft_isdigit.c ft_islower.c ft_isprint.c ft_isspace.c ft_isupper.c ft_itoa.c\
@@ -45,30 +46,35 @@ OK="$(GRE)$(CHE)$(NC)"
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	@printf "\ndoing ar rc $(BOL)$(CYA)$@$(NC)"
+	@printf "\n[$(NAME_P)] doing ar rc $(BOL)$(CYA)$@$(NC)"
 	@ar rc $@ $^
-	@printf '\t'$(OK)'\n'
-	@printf "doing ranlib $(BOL)$(CYA)$@$(NC)"
+	@printf '\t\t'$(OK)'\n'
+	@printf "[$(NAME_P)] doing ranlib $(BOL)$(CYA)$@$(NC)"
 	@ranlib	$@
-	@printf '\t'$(OK)'\n'
+	@printf '\t\t'$(OK)'\n'
 
 %.o: %.c
-	@printf "\r\033[0Kcompile $(BOL)$(YEL)$<$(NC)..."
+	@printf "\r\033[0K[$(NAME_P)] compile $(BOL)$(YEL)$<$(NC)..."
 	@$(CC) $(CFLAGS) -o $@ -c $<
-	@printf '\t'$(OK)
+	@printf '\t\t'$(OK)
 
 clean :
-	@printf "rm all $(BOL)$(RED) obj file$(NC)"
+	@printf "[$(NAME_P)] rm all $(BOL)$(RED) obj file$(NC)"
 	@rm -f $(OBJ)
-	@printf '\t'$(OK)'\n'
+	@printf '\t\t'$(OK)'\n'
 
 fclean : clean
 	@printf "rm $(BOL)$(CYA)$(NAME)$(NC)"
 	@rm -f $(NAME)
-	@printf '\t\t'$(OK)'\n'
+	@printf '\t'$(OK)'\n'
+
+cleanf :
+	@printf "[$(NAME)]  rm $(BOL)$(CYA)$(NAME)$(NC)"
+	@rm -f $(NAME)
+	@printf '\t\t\t'$(OK)'\n'
 
 proper : all clean
 
 re : fclean all
 
-.PHONY: proper re
+.PHONY: proper re cleanf

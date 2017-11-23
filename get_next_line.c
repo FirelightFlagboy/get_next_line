@@ -6,7 +6,7 @@
 /*   By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 14:49:35 by fbenneto          #+#    #+#             */
-/*   Updated: 2017/11/23 12:49:44 by fbenneto         ###   ########.fr       */
+/*   Updated: 2017/11/23 13:57:30 by fbenneto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char	*ft_super_cat(char **astr, char *to_add)
 	if (!astr)
 		return (NULL);
 	str = *astr;
-	len_str = ft_strlen(str)
+	len_str = ft_strlen(str);
 	len_add = ft_strlen(to_add);
-	if (!(res = ft_strnew(str + to_add))
+	if (!(res = ft_strnew(len_str + len_add)))
 		return (NULL);
 	dup = res;
 	while (*str)
@@ -33,7 +33,7 @@ char	*ft_super_cat(char **astr, char *to_add)
 	if (!to_add)
 		return (res);
 	while (*to_add)
-		*du++ = *to_add++;
+		*dup++ = *to_add++;
 	free(str);
 	astr = 0;
 	return (res);
@@ -44,7 +44,7 @@ int		get_next_line(const int fd, char **line)
 	static char	*tab[OPEN_MAX + 1];
 	char		buff[BUFF_SIZE + 1];
 	char		*s;
-	char		*t
+	char		*t;
 	int			st;
 
 	if (!(s = ft_strnew(0)))
