@@ -7,3 +7,5 @@
 !libft*
 !Makefile
 !tmp
+*.a
+*.o
