@@ -6,7 +6,7 @@
 #    By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/23 13:44:05 by fbenneto          #+#    #+#              #
-#    Updated: 2017/11/23 14:02:52 by fbenneto         ###   ########.fr        #
+#    Updated: 2017/11/23 14:22:54 by fbenneto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ $(LIBFT) :
 clean:
 	@make -C $(DLIB) $@
 	@printf "[$(NAME)] rm all $(BOL)$(RED) obj file$(NC)"
-	@rm -f $(OBJS)
+	@rm -f $(OBJ)
 	@printf '\t'$(OK)'\n'
 
 fclean: clean
