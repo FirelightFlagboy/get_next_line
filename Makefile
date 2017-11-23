@@ -6,7 +6,7 @@
 #    By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/23 13:44:05 by fbenneto          #+#    #+#              #
-#    Updated: 2017/11/23 14:22:54 by fbenneto         ###   ########.fr        #
+#    Updated: 2017/11/23 14:24:49 by fbenneto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,10 @@ OK="$(GRE)$(CHE)$(NC)"
 all: $(NAME)
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@printf "[$(NAME)] linking $(CYA)$(BOL)$(OBJ)$(NC)\n"
+	@printf "\n[$(NAME)] linking $(CYA)$(BOL)$(OBJ)$(NC)\n"
 	@printf "to make the binary $(MAG)$(BOL)$(NAME)$(NC)"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(DLIB)$(LIBFT)
-	@printf '\t'$(OK)'\n'
+	@printf '\t\t'$(OK)'\n'
 
 $(LIBFT) :
 	@make -C $(DLIB) all
@@ -48,19 +48,19 @@ $(LIBFT) :
 %.o : %.c
 	@printf "\r\033[0K[$(NAME)] compile $(BOL)$(YEL)$<$(NC)..."
 	@$(CC) $(CFLAGS) -I./libft -c $<
-	@printf '\t\t'$(OK)
+	@printf '\t'$(OK)
 
 clean:
 	@make -C $(DLIB) $@
 	@printf "[$(NAME)] rm all $(BOL)$(RED) obj file$(NC)"
 	@rm -f $(OBJ)
-	@printf '\t'$(OK)'\n'
+	@printf '\t\t'$(OK)'\n'
 
 fclean: clean
 	@make -C $(DLIB) cleanf
 	@printf "[$(NAME)] rm $(BOL)$(CYA)$(NAME)$(NC)"
 	@rm -f $(NAME)
-	@printf '\t'$(OK)'\n'
+	@printf '\t\t'$(OK)'\n'
 
 re: fclean all
 

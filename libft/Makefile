@@ -6,7 +6,7 @@
 #    By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 14:45:08 by fbenneto          #+#    #+#              #
-#    Updated: 2017/11/23 14:15:50 by fbenneto         ###   ########.fr        #
+#    Updated: 2017/11/23 14:25:26 by fbenneto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,20 +48,20 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 	@printf "\n[$(NAME_P)] doing ar rc $(BOL)$(CYA)$@$(NC)"
 	@ar rc $@ $^
-	@printf '\t\t'$(OK)'\n'
+	@printf '\t\t\t'$(OK)'\n'
 	@printf "[$(NAME_P)] doing ranlib $(BOL)$(CYA)$@$(NC)"
 	@ranlib	$@
-	@printf '\t\t'$(OK)'\n'
+	@printf '\t\t\t'$(OK)'\n'
 
 %.o: %.c
 	@printf "\r\033[0K[$(NAME_P)] compile $(BOL)$(YEL)$<$(NC)..."
 	@$(CC) $(CFLAGS) -o $@ -c $<
-	@printf '\t\t'$(OK)
+	@printf '\t\t\t'$(OK)
 
 clean :
 	@printf "[$(NAME_P)] rm all $(BOL)$(RED) obj file$(NC)"
 	@rm -f $(OBJ)
-	@printf '\t\t'$(OK)'\n'
+	@printf '\t\t\t'$(OK)'\n'
 
 fclean : clean
 	@printf "rm $(BOL)$(CYA)$(NAME)$(NC)"
