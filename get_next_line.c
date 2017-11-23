@@ -6,11 +6,20 @@
 /*   By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 14:49:35 by fbenneto          #+#    #+#             */
-/*   Updated: 2017/11/21 14:57:07 by fbenneto         ###   ########.fr       */
+/*   Updated: 2017/11/21 15:37:34 by fbenneto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+int		ft_has_newline(char *str)
+{
+	if (*str == '\n')
+		return (1);
+	if (*str == '\0')
+		return (0);
+	return (ft_has_newline(str + 1));
+}
 
 int		get_next_line(const int fd, char **line)
 {
