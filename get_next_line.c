@@ -6,7 +6,7 @@
 /*   By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 14:49:35 by fbenneto          #+#    #+#             */
-/*   Updated: 2017/11/23 12:06:40 by fbenneto         ###   ########.fr       */
+/*   Updated: 2017/11/23 12:49:44 by fbenneto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,36 @@ char	*ft_super_cat(char **astr, char *to_add)
 		return (res);
 	while (*to_add)
 		*du++ = *to_add++;
+	free(str);
+	astr = 0;
 	return (res);
 }
 
 int		get_next_line(const int fd, char **line)
 {
-	static	char	*tab[OPEN_MAX + 1];
-	char			buff[BUFF_SIZE + 1];
-	char			*tmp;
-	int				i;
-	int				st;
+	static char	*tab[OPEN_MAX + 1];
+	char		buff[BUFF_SIZE + 1];
+	char		*s;
+	char		*t
+	int			st;
 
-	ft_strclr(buff);
+	if (!(s = ft_strnew(0)))
+		return (-1);
 	if (!(tab[fd] = ft_strnew(BUFF_SIZE)))
 		return (-1);
 	while ((st = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		if (ft_strchr(buff, '\n'))
-		{
-			//TODO
-			//il a trouver un '\n'
+		s = ft_super_cat(&s, buff);
+		if (ft_strchr(buff, '\n'))//TODO
 			break;
-		}
 		ft_strclr(buff);
 	}
+	if (st < 0)
+		return (-1);
+	tab[fd] = ft_strdup(buff);
+	if (!(*line = ft_strnew(((t = ft_strchr(s, '\n'))) ? t - s : ft_strlen(s))))//taille de la chaine a cp entre deux '\n'
+		return (-1);
+	ft_strncpy(*line, s, (t) ? t - s : ft_strlen(s));
+	free(s);
 	return ((st > 0) ? 1 : st);
 }
