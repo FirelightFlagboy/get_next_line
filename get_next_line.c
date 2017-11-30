@@ -5,70 +5,56 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/21 14:49:35 by fbenneto          #+#    #+#             */
-/*   Updated: 2017/11/23 14:34:13 by fbenneto         ###   ########.fr       */
+/*   Created: 2017/11/29 11:15:13 by fbenneto          #+#    #+#             */
+/*   Updated: 2017/11/30 11:10:39 by fbenneto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-char	*ft_super_cat(char **astr, char *to_add)
+static int	ft_read_check(int fd, char *t[])
 {
-	size_t	len_str;
-	size_t	len_add;
-	char	*str;
-	char	*res;
-	char	*dup;
+	char		buff[BUFF_SIZE + 1];
+	char		*tmp;
+	int			res;
 
-	if (!astr)
-		return (NULL);
-	str = *astr;
-	len_str = ft_strlen(str);
-	len_add = ft_strlen(to_add);
-	if (!(res = ft_strnew(len_str + len_add)))
-		return (NULL);
-	dup = res;
-	while (*str)
-		*dup++ = *str++;
-	if (!to_add)
-		return (res);
-	while (*to_add)
-		*dup++ = *to_add++;
-	free(str);
-	astr = 0;
+	res = 1;
+	ft_bzero(buff, BUFF_SIZE);
+	while (!(ft_strchr(t[fd], '\n')) && (res = read(fd, buff, BUFF_SIZE)) > 0)
+	{
+		buff[res] = '\0';
+		tmp = t[fd];
+		if (!(t[fd] = ft_strjoin(t[fd], buff)))
+			return (-1);
+		ft_strdel(&tmp);
+	}
 	return (res);
 }
 
-int		get_next_line(const int fd, char **line)
+int			get_next_line(const int fd, char **line)
 {
-	static char	*tab[OPEN_MAX + 1];
-	char		buff[BUFF_SIZE + 1];
-	char		*s;
-	char		*t;
-	int			st;
+	static char	*save[OPEN_MAX + 1];
+	char		*tmp;
+	int			res;
 
-	if (!(s = ft_strnew(0)))
+	if (line == NULL || fd < 0 || fd > OPEN_MAX)
 		return (-1);
-	if (!(tab[fd] = ft_strnew(BUFF_SIZE)))
+	if (save[fd] == NULL && (save[fd] = ft_strnew(0)) == NULL)
 		return (-1);
-	while ((st = read(fd, buff, BUFF_SIZE)) > 0)
+	if ((res = ft_read_check(fd, save)) == -1)
+		return (-1);
+	if (res == 0)
 	{
-		s = ft_super_cat(&s, buff);
-		if (ft_strchr(buff, '\n'))
-		{
-			printf("has nl\n");
-			break;
-		}
-		ft_strclr(buff);
+		if (!(*line = ft_strdup(save[fd])))
+			return (-1);
+		ft_strdel(save + fd);
+		return ((ft_strlen(*line)) ? 1 : 0);
 	}
-	if (st < 0)
+	if (!(*line = ft_strsub(save[fd], 0, ft_strchr(save[fd], '\n') - save[fd])))
 		return (-1);
-	tab[fd] = ft_strdup(buff);
-	if (!(*line = ft_strnew(((t = ft_strchr(s, '\n'))) ? t - s : ft_strlen(s))))//taille de la chaine a cp entre deux '\n'
+	tmp = save[fd];
+	if (!(save[fd] = ft_strdup(ft_strchr(save[fd], '\n') + 1)))
 		return (-1);
-	ft_strncpy(*line, s, (t) ? t - s : ft_strlen(s));
-	st = ft_strlen(ft_strchr(buff, '\n') + 1);
-	free(s);
-	return ((st > 0) ? 1 : 0);
+	ft_strdel(&tmp);
+	return (1);
 }

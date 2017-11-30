@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbenneto <fbenneto@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaudot <vbaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/21 14:49:33 by fbenneto          #+#    #+#             */
-/*   Updated: 2017/11/23 12:07:04 by fbenneto         ###   ########.fr       */
+/*   Created: 2017/11/13 15:22:02 by vbaudot           #+#    #+#             */
+/*   Updated: 2017/11/29 13:16:34 by fbenneto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE
-# define GET_NEXT_LINE
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
+# ifndef BUFF_SIZE
 # define BUFF_SIZE 32
+# endif
 
 # include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <limits.h>
 # include "libft.h"
 
 int		get_next_line(const int fd, char **line);
-char	*ft_super_cat(char **astr, char *to_add);
 #endif
