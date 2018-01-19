@@ -48,7 +48,7 @@ int			get_next_line(const int fd, char **line)
 		if (!(*line = ft_strdup(save[fd])))
 			return (-1);
 		ft_strdel(save + fd);
-		return ((ft_strlen(*line)) ? 1 : 0);
+		return (!!(*line));
 	}
 	if (!(*line = ft_strsub(save[fd], 0, ft_strchr(save[fd], '\n') - save[fd])))
 		return (-1);
